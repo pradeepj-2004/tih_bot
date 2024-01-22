@@ -1,14 +1,11 @@
 import os
-
 from ament_index_python.packages import get_package_share_directory
-
 from launch import LaunchDescription
 from launch.substitutions import LaunchConfiguration
 from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
 
 import xacro
-
 
 def generate_launch_description():
 
@@ -28,6 +25,18 @@ def generate_launch_description():
         output='screen',
         parameters=[params]
     )
+    node_joint_state_publisher=Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        output='screen',
+        # parameters=[params]
+    )
+    # rviz = Node(
+    #     name='rviz',
+    #     package='rviz2',
+    #     executable='rviz2',
+    #     output='screen',
+    # )
 
 
     # Launch!
@@ -37,5 +46,6 @@ def generate_launch_description():
             default_value='false',
             description='Use sim time if true'),
 
-        node_robot_state_publisher
+        node_robot_state_publisher,
+        node_joint_state_publisher
     ])
